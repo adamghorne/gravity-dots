@@ -2,11 +2,11 @@
 /**
  * Admin: the whole settings surface via the WordPress Settings API.
  *
- * Registers one option (gravity_dots_settings), builds the page under
- * Settings → Gravity Dots, sanitises every field on the way in, and escapes
+ * Registers one option (aizledots_settings), builds the page under
+ * Settings → Aizle Dots, sanitises every field on the way in, and escapes
  * every value on the way out.
  *
- * @package GravityDots
+ * @package AizleDots
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Settings page + registration + sanitisation.
  */
-class GravityDots_Settings {
+class AizleDots_Settings {
 
-	const OPTION_GROUP = 'gravity_dots';
-	const OPTION_NAME  = 'gravity_dots_settings';
-	const PAGE_SLUG    = 'gravity-dots';
+	const OPTION_GROUP = 'aizledots';
+	const OPTION_NAME  = 'aizledots_settings';
+	const PAGE_SLUG    = 'aizle-dots';
 
 	/**
 	 * The settings page hook suffix (used to scope admin assets).
@@ -36,7 +36,7 @@ class GravityDots_Settings {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_init', array( $this, 'register' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin' ) );
-		add_action( 'admin_post_gravitydots_reset', array( $this, 'handle_reset' ) );
+		add_action( 'admin_post_aizledots_reset', array( $this, 'handle_reset' ) );
 	}
 
 	/**
@@ -44,11 +44,11 @@ class GravityDots_Settings {
 	 */
 	public function handle_reset() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to do this.', 'gravity-dots' ) );
+			wp_die( esc_html__( 'You do not have permission to do this.', 'aizle-dots' ) );
 		}
-		check_admin_referer( 'gravitydots_reset' );
-		update_option( self::OPTION_NAME, gravitydots_default_settings() );
-		set_transient( 'gravitydots_reset_' . get_current_user_id(), 1, 30 );
+		check_admin_referer( 'aizledots_reset' );
+		update_option( self::OPTION_NAME, aizledots_default_settings() );
+		set_transient( 'aizledots_reset_' . get_current_user_id(), 1, 30 );
 		wp_safe_redirect( add_query_arg( 'page', self::PAGE_SLUG, admin_url( 'options-general.php' ) ) );
 		exit;
 	}
@@ -58,8 +58,8 @@ class GravityDots_Settings {
 	 */
 	public function add_menu() {
 		$this->hook_suffix = add_options_page(
-			__( 'Gravity Dots', 'gravity-dots' ),
-			__( 'Gravity Dots', 'gravity-dots' ),
+			__( 'Aizle Dots', 'aizle-dots' ),
+			__( 'Aizle Dots', 'aizle-dots' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			array( $this, 'render_page' )
@@ -76,48 +76,48 @@ class GravityDots_Settings {
 			array(
 				'type'              => 'array',
 				'sanitize_callback' => array( $this, 'sanitize' ),
-				'default'           => gravitydots_default_settings(),
+				'default'           => aizledots_default_settings(),
 			)
 		);
 
 		// --- Section: Where it appears (enable lives in the "Start" block) ---
-		add_settings_section( 'gravitydots_display', __( 'Where it appears', 'gravity-dots' ), array( $this, 'section_display' ), self::PAGE_SLUG );
-		$this->add_field( 'gravitydots_display', 'scope', __( 'Where it shows', 'gravity-dots' ), 'field_scope' );
-		$this->add_field( 'gravitydots_display', 'exclude_ids', __( 'Exclude post/page IDs', 'gravity-dots' ), 'field_exclude_ids' );
-		$this->add_field( 'gravitydots_display', 'layer', __( 'Layer', 'gravity-dots' ), 'field_layer' );
+		add_settings_section( 'aizledots_display', __( 'Where it appears', 'aizle-dots' ), array( $this, 'section_display' ), self::PAGE_SLUG );
+		$this->add_field( 'aizledots_display', 'scope', __( 'Where it shows', 'aizle-dots' ), 'field_scope' );
+		$this->add_field( 'aizledots_display', 'exclude_ids', __( 'Exclude post/page IDs', 'aizle-dots' ), 'field_exclude_ids' );
+		$this->add_field( 'aizledots_display', 'layer', __( 'Layer', 'aizle-dots' ), 'field_layer' );
 
 		// --- Section: Look ---
-		add_settings_section( 'gravitydots_look', __( 'Look', 'gravity-dots' ), array( $this, 'section_look' ), self::PAGE_SLUG );
-		$this->add_field( 'gravitydots_look', 'palette', __( 'Colour palette', 'gravity-dots' ), 'field_palette' );
-		$this->add_field( 'gravitydots_look', 'use_theme_colors', __( 'Use theme colours', 'gravity-dots' ), 'field_use_theme_colors' );
-		$this->add_field( 'gravitydots_look', 'opacity', __( 'Opacity', 'gravity-dots' ), 'field_opacity' );
-		$this->add_field( 'gravitydots_look', 'density_area', __( 'Density', 'gravity-dots' ), 'field_density' );
-		$this->add_field( 'gravitydots_look', 'size', __( 'Particle size', 'gravity-dots' ), 'field_size' );
-		$this->add_field( 'gravitydots_look', 'shapes', __( 'Shapes', 'gravity-dots' ), 'field_shapes' );
-		$this->add_field( 'gravitydots_look', 'link_lines', __( 'Connect nearby dots', 'gravity-dots' ), 'field_link_lines' );
-		$this->add_field( 'gravitydots_look', 'link_distance', __( 'Connection distance', 'gravity-dots' ), 'field_link_distance' );
+		add_settings_section( 'aizledots_look', __( 'Look', 'aizle-dots' ), array( $this, 'section_look' ), self::PAGE_SLUG );
+		$this->add_field( 'aizledots_look', 'palette', __( 'Colour palette', 'aizle-dots' ), 'field_palette' );
+		$this->add_field( 'aizledots_look', 'use_theme_colors', __( 'Use theme colours', 'aizle-dots' ), 'field_use_theme_colors' );
+		$this->add_field( 'aizledots_look', 'opacity', __( 'Opacity', 'aizle-dots' ), 'field_opacity' );
+		$this->add_field( 'aizledots_look', 'density_area', __( 'Density', 'aizle-dots' ), 'field_density' );
+		$this->add_field( 'aizledots_look', 'size', __( 'Particle size', 'aizle-dots' ), 'field_size' );
+		$this->add_field( 'aizledots_look', 'shapes', __( 'Shapes', 'aizle-dots' ), 'field_shapes' );
+		$this->add_field( 'aizledots_look', 'link_lines', __( 'Connect nearby dots', 'aizle-dots' ), 'field_link_lines' );
+		$this->add_field( 'aizledots_look', 'link_distance', __( 'Connection distance', 'aizle-dots' ), 'field_link_distance' );
 
 		// --- Section: Motion & cursor ---
-		add_settings_section( 'gravitydots_motion', __( 'Motion &amp; cursor', 'gravity-dots' ), array( $this, 'section_motion' ), self::PAGE_SLUG );
-		$this->add_field( 'gravitydots_motion', 'drift', __( 'Drift', 'gravity-dots' ), 'field_drift' );
-		$this->add_field( 'gravitydots_motion', 'cursor_radius', __( 'Cursor reach', 'gravity-dots' ), 'field_cursor_radius' );
-		$this->add_field( 'gravitydots_motion', 'push', __( 'Push strength', 'gravity-dots' ), 'field_push' );
-		$this->add_field( 'gravitydots_motion', 'cursor_mode', __( 'Cursor effect', 'gravity-dots' ), 'field_cursor_mode' );
-		$this->add_field( 'gravitydots_motion', 'rotate_with_cursor', __( 'Rotate with cursor', 'gravity-dots' ), 'field_rotate_with_cursor' );
-		$this->add_field( 'gravitydots_motion', 'sleep_mode', __( 'Sleep until disturbed', 'gravity-dots' ), 'field_sleep_mode' );
-		$this->add_field( 'gravitydots_motion', 'sleep_opacity', __( 'Resting opacity', 'gravity-dots' ), 'field_sleep_opacity' );
-		$this->add_field( 'gravitydots_motion', 'wake_ms', __( 'Stay-awake time', 'gravity-dots' ), 'field_wake_ms' );
-		$this->add_field( 'gravitydots_motion', 'scroll_strength', __( 'Scroll reaction', 'gravity-dots' ), 'field_scroll_strength' );
+		add_settings_section( 'aizledots_motion', __( 'Motion &amp; cursor', 'aizle-dots' ), array( $this, 'section_motion' ), self::PAGE_SLUG );
+		$this->add_field( 'aizledots_motion', 'drift', __( 'Drift', 'aizle-dots' ), 'field_drift' );
+		$this->add_field( 'aizledots_motion', 'cursor_radius', __( 'Cursor reach', 'aizle-dots' ), 'field_cursor_radius' );
+		$this->add_field( 'aizledots_motion', 'push', __( 'Push strength', 'aizle-dots' ), 'field_push' );
+		$this->add_field( 'aizledots_motion', 'cursor_mode', __( 'Cursor effect', 'aizle-dots' ), 'field_cursor_mode' );
+		$this->add_field( 'aizledots_motion', 'rotate_with_cursor', __( 'Rotate with cursor', 'aizle-dots' ), 'field_rotate_with_cursor' );
+		$this->add_field( 'aizledots_motion', 'sleep_mode', __( 'Sleep until disturbed', 'aizle-dots' ), 'field_sleep_mode' );
+		$this->add_field( 'aizledots_motion', 'sleep_opacity', __( 'Resting opacity', 'aizle-dots' ), 'field_sleep_opacity' );
+		$this->add_field( 'aizledots_motion', 'wake_ms', __( 'Stay-awake time', 'aizle-dots' ), 'field_wake_ms' );
+		$this->add_field( 'aizledots_motion', 'scroll_strength', __( 'Scroll reaction', 'aizle-dots' ), 'field_scroll_strength' );
 
 		// --- Section: Content interaction ---
-		add_settings_section( 'gravitydots_content', __( 'Content interaction', 'gravity-dots' ), array( $this, 'section_content' ), self::PAGE_SLUG );
-		$this->add_field( 'gravitydots_content', 'avoid_content', __( 'Avoid page content', 'gravity-dots' ), 'field_avoid_content' );
-		$this->add_field( 'gravitydots_content', 'avoid_strength', __( 'Avoidance strength', 'gravity-dots' ), 'field_avoid_strength' );
+		add_settings_section( 'aizledots_content', __( 'Content interaction', 'aizle-dots' ), array( $this, 'section_content' ), self::PAGE_SLUG );
+		$this->add_field( 'aizledots_content', 'avoid_content', __( 'Avoid page content', 'aizle-dots' ), 'field_avoid_content' );
+		$this->add_field( 'aizledots_content', 'avoid_strength', __( 'Avoidance strength', 'aizle-dots' ), 'field_avoid_strength' );
 
 		// --- Section: Behaviour ---
-		add_settings_section( 'gravitydots_behaviour', __( 'Behaviour', 'gravity-dots' ), array( $this, 'section_behaviour' ), self::PAGE_SLUG );
-		$this->add_field( 'gravitydots_behaviour', 'respect_reduced_motion', __( 'Respect reduced motion', 'gravity-dots' ), 'field_respect_reduced_motion' );
-		$this->add_field( 'gravitydots_behaviour', 'disable_on_mobile', __( 'Disable on mobile', 'gravity-dots' ), 'field_disable_on_mobile' );
+		add_settings_section( 'aizledots_behaviour', __( 'Behaviour', 'aizle-dots' ), array( $this, 'section_behaviour' ), self::PAGE_SLUG );
+		$this->add_field( 'aizledots_behaviour', 'respect_reduced_motion', __( 'Respect reduced motion', 'aizle-dots' ), 'field_respect_reduced_motion' );
+		$this->add_field( 'aizledots_behaviour', 'disable_on_mobile', __( 'Disable on mobile', 'aizle-dots' ), 'field_disable_on_mobile' );
 	}
 
 	/**
@@ -144,23 +144,23 @@ class GravityDots_Settings {
 	 * ------------------------------------------------------------------- */
 
 	public function section_display() {
-		echo '<p>' . esc_html__( 'Choose which pages show the field, and whether it sits over or behind your content.', 'gravity-dots' ) . '</p>';
+		echo '<p>' . esc_html__( 'Choose which pages show the field, and whether it sits over or behind your content.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function section_look() {
-		echo '<p>' . esc_html__( 'Colour, opacity, density, size, and shapes. Sensible defaults are already set.', 'gravity-dots' ) . '</p>';
+		echo '<p>' . esc_html__( 'Colour, opacity, density, size, and shapes. Sensible defaults are already set.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function section_motion() {
-		echo '<p>' . esc_html__( 'How much the field drifts on its own, how it reacts to the cursor, and how it responds to scrolling.', 'gravity-dots' ) . '</p>';
+		echo '<p>' . esc_html__( 'How much the field drifts on its own, how it reacts to the cursor, and how it responds to scrolling.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function section_content() {
-		echo '<p>' . esc_html__( 'Let particles deflect around your page content. This is the heaviest effect, so it is automatically switched off on small screens.', 'gravity-dots' ) . '</p>';
+		echo '<p>' . esc_html__( 'Let particles deflect around your page content. This is the heaviest effect, so it is automatically switched off on small screens.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function section_behaviour() {
-		echo '<p>' . esc_html__( 'Accessibility and performance options.', 'gravity-dots' ) . '</p>';
+		echo '<p>' . esc_html__( 'Accessibility and performance options.', 'aizle-dots' ) . '</p>';
 	}
 
 	/* ---------------------------------------------------------------------
@@ -173,7 +173,7 @@ class GravityDots_Settings {
 	 * @return array
 	 */
 	private function values() {
-		return gravitydots_get_settings();
+		return aizledots_get_settings();
 	}
 
 	/**
@@ -192,17 +192,17 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-enabled" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'enabled' ) ),
 			checked( ! empty( $v['enabled'] ), true, false ),
-			esc_html__( 'Show the particle field on the front end.', 'gravity-dots' )
+			esc_html__( 'Show the particle field on the front end.', 'aizle-dots' )
 		);
 	}
 
 	public function field_scope() {
 		$v       = $this->values();
 		$options = array(
-			'sitewide'   => __( 'Sitewide (everywhere)', 'gravity-dots' ),
-			'front_page' => __( 'Front page only', 'gravity-dots' ),
-			'posts'      => __( 'Single posts only', 'gravity-dots' ),
-			'pages'      => __( 'Pages only', 'gravity-dots' ),
+			'sitewide'   => __( 'Sitewide (everywhere)', 'aizle-dots' ),
+			'front_page' => __( 'Front page only', 'aizle-dots' ),
+			'posts'      => __( 'Single posts only', 'aizle-dots' ),
+			'pages'      => __( 'Pages only', 'aizle-dots' ),
 		);
 		echo '<select id="gd-scope" name="' . esc_attr( $this->name( 'scope' ) ) . '">';
 		foreach ( $options as $value => $label ) {
@@ -223,16 +223,16 @@ class GravityDots_Settings {
 			'<input type="text" id="gd-exclude_ids" class="regular-text" name="%1$s" value="%2$s" placeholder="%3$s" />',
 			esc_attr( $this->name( 'exclude_ids' ) ),
 			esc_attr( $ids ),
-			esc_attr__( 'e.g. 12, 84, 230', 'gravity-dots' )
+			esc_attr__( 'e.g. 12, 84, 230', 'aizle-dots' )
 		);
-		echo '<p class="description">' . esc_html__( 'Comma-separated post or page IDs to hide the field on.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Comma-separated post or page IDs to hide the field on.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_layer() {
 		$v       = $this->values();
 		$options = array(
-			'over'   => __( 'Over content (subtle overlay)', 'gravity-dots' ),
-			'behind' => __( 'Behind content (safest for text)', 'gravity-dots' ),
+			'over'   => __( 'Over content (subtle overlay)', 'aizle-dots' ),
+			'behind' => __( 'Behind content (safest for text)', 'aizle-dots' ),
 		);
 		echo '<fieldset>';
 		foreach ( $options as $value => $label ) {
@@ -245,14 +245,14 @@ class GravityDots_Settings {
 			);
 		}
 		echo '</fieldset>';
-		echo '<p class="description">' . esc_html__( 'If the dots overlap a sticky header or menu, switch to "Behind content".', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'If the dots overlap a sticky header or menu, switch to "Behind content".', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_palette() {
 		$v       = $this->values();
 		$palette = array_values( (array) $v['palette'] );
 		if ( empty( $palette ) ) {
-			$defaults = gravitydots_default_settings();
+			$defaults = aizledots_default_settings();
 			$palette  = $defaults['palette'];
 		}
 		echo '<div id="gd-palette" class="gd-palette">';
@@ -262,9 +262,9 @@ class GravityDots_Settings {
 		echo '</div>';
 		printf(
 			'<p><button type="button" class="button" id="gd-palette-add">%s</button></p>',
-			esc_html__( '+ Add colour', 'gravity-dots' )
+			esc_html__( '+ Add colour', 'aizle-dots' )
 		);
-		echo '<p class="description">' . esc_html__( 'The field cycles through these colours, one per particle. Add or remove as many as you like.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'The field cycles through these colours, one per particle. Add or remove as many as you like.', 'aizle-dots' ) . '</p>';
 
 		// A template row for admin.js to clone when "Add colour" is clicked.
 		echo '<script type="text/html" id="gd-palette-row-template">';
@@ -282,8 +282,8 @@ class GravityDots_Settings {
 			'<div class="gd-palette-row"><input type="text" class="gd-color-field" name="%1$s[]" value="%2$s" /> <button type="button" class="button-link gd-palette-remove" aria-label="%3$s">%4$s</button></div>',
 			esc_attr( $this->name( 'palette' ) ),
 			esc_attr( $hex ),
-			esc_attr__( 'Remove this colour', 'gravity-dots' ),
-			esc_html__( 'Remove', 'gravity-dots' )
+			esc_attr__( 'Remove this colour', 'aizle-dots' ),
+			esc_html__( 'Remove', 'aizle-dots' )
 		);
 	}
 
@@ -318,24 +318,24 @@ class GravityDots_Settings {
 
 	public function field_use_theme_colors() {
 		$v     = $this->values();
-		$theme = gravitydots_get_theme_palette();
+		$theme = aizledots_get_theme_palette();
 		printf(
 			'<label><input type="checkbox" id="gd-use_theme_colors" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'use_theme_colors' ) ),
 			checked( ! empty( $v['use_theme_colors'] ), true, false ),
-			esc_html__( 'Pull colours from your active theme instead of the swatches above.', 'gravity-dots' )
+			esc_html__( 'Pull colours from your active theme instead of the swatches above.', 'aizle-dots' )
 		);
 		if ( empty( $theme ) ) {
-			echo '<p class="description">' . esc_html__( 'Your active theme does not expose a colour palette, so the swatches above will be used.', 'gravity-dots' ) . '</p>';
+			echo '<p class="description">' . esc_html__( 'Your active theme does not expose a colour palette, so the swatches above will be used.', 'aizle-dots' ) . '</p>';
 		} else {
-			echo '<p class="description">' . esc_html( sprintf( /* translators: %d: number of colours. */ _n( 'Found %d theme colour.', 'Found %d theme colours.', count( $theme ), 'gravity-dots' ), count( $theme ) ) ) . '</p>';
+			echo '<p class="description">' . esc_html( sprintf( /* translators: %d: number of colours. */ _n( 'Found %d theme colour.', 'Found %d theme colours.', count( $theme ), 'aizle-dots' ), count( $theme ) ) ) . '</p>';
 		}
 	}
 
 	public function field_opacity() {
 		$v = $this->values();
 		$this->range( 'opacity', array( 'min' => 0.05, 'max' => 1, 'step' => 0.05, 'value' => $v['opacity'], 'readout' => 'value' ) );
-		echo '<p class="description">' . esc_html__( 'How visible the whole field is. Lower keeps text crisp in "over" mode.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How visible the whole field is. Lower keeps text crisp in "over" mode.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_density() {
@@ -343,15 +343,15 @@ class GravityDots_Settings {
 		// Stored value is density_area (screen px² per particle): LOWER = MORE dots.
 		// Slider therefore reads left = More, right = Fewer (see label below).
 		$this->range( 'density_area', array( 'min' => 400, 'max' => 20000, 'step' => 100, 'value' => $v['density_area'], 'readout' => 'dots' ) );
-		echo '<p class="description">' . esc_html__( 'Left = more dots (up to several thousand), right = fewer. The readout estimates the count on a typical desktop screen; the field auto-throttles on slower devices.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Left = more dots (up to several thousand), right = fewer. The readout estimates the count on a typical desktop screen; the field auto-throttles on slower devices.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_size() {
 		$v = $this->values();
-		echo '<p style="margin:0 0 6px"><label>' . esc_html__( 'Smallest', 'gravity-dots' ) . ' ';
+		echo '<p style="margin:0 0 6px"><label>' . esc_html__( 'Smallest', 'aizle-dots' ) . ' ';
 		$this->range( 'size_min', array( 'min' => 0.5, 'max' => 6, 'step' => 0.1, 'value' => $v['size_min'], 'suffix' => 'px' ) );
 		echo '</label></p>';
-		echo '<p style="margin:0"><label>' . esc_html__( 'Largest', 'gravity-dots' ) . ' ';
+		echo '<p style="margin:0"><label>' . esc_html__( 'Largest', 'aizle-dots' ) . ' ';
 		$this->range( 'size_max', array( 'min' => 0.5, 'max' => 10, 'step' => 0.1, 'value' => $v['size_max'], 'suffix' => 'px' ) );
 		echo '</label></p>';
 	}
@@ -359,10 +359,10 @@ class GravityDots_Settings {
 	public function field_shapes() {
 		$v      = $this->values();
 		$shapes = array(
-			'shape_dot'      => __( 'Dots', 'gravity-dots' ),
-			'shape_square'   => __( 'Squares', 'gravity-dots' ),
-			'shape_triangle' => __( 'Triangles', 'gravity-dots' ),
-			'shape_line'     => __( 'Lines', 'gravity-dots' ),
+			'shape_dot'      => __( 'Dots', 'aizle-dots' ),
+			'shape_square'   => __( 'Squares', 'aizle-dots' ),
+			'shape_triangle' => __( 'Triangles', 'aizle-dots' ),
+			'shape_line'     => __( 'Lines', 'aizle-dots' ),
 		);
 		echo '<fieldset>';
 		foreach ( $shapes as $key => $label ) {
@@ -374,7 +374,7 @@ class GravityDots_Settings {
 			);
 		}
 		echo '</fieldset>';
-		echo '<p class="description">' . esc_html__( 'Pick any combination. If none are ticked, dots are used.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Pick any combination. If none are ticked, dots are used.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_link_lines() {
@@ -383,48 +383,48 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-link_lines" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'link_lines' ) ),
 			checked( ! empty( $v['link_lines'] ), true, false ),
-			esc_html__( 'Draw faint lines between dots that are close together (a "constellation" web).', 'gravity-dots' )
+			esc_html__( 'Draw faint lines between dots that are close together (a "constellation" web).', 'aizle-dots' )
 		);
-		echo '<p class="description">' . esc_html__( 'At very high dot counts the field automatically thins itself to stay smooth.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'At very high dot counts the field automatically thins itself to stay smooth.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_link_distance() {
 		$v = $this->values();
 		$this->range( 'link_distance', array( 'min' => 20, 'max' => 300, 'step' => 5, 'value' => $v['link_distance'], 'suffix' => 'px' ) );
-		echo '<p class="description">' . esc_html__( 'How close two dots must be before a line connects them.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How close two dots must be before a line connects them.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_drift() {
 		$v = $this->values();
 		$this->range( 'drift', array( 'min' => 0, 'max' => 200, 'step' => 2, 'value' => $v['drift'], 'suffix' => 'px' ) );
-		echo '<p class="description">' . esc_html__( 'How far particles wander on their own. Set to 0 for a perfectly still field; high values make a restless swarm.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How far particles wander on their own. Set to 0 for a perfectly still field; high values make a restless swarm.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_cursor_radius() {
 		$v = $this->values();
 		$this->range( 'cursor_radius', array( 'min' => 0, 'max' => 800, 'step' => 10, 'value' => $v['cursor_radius'], 'suffix' => 'px' ) );
-		echo '<p class="description">' . esc_html__( 'How wide the area is that reacts to the cursor.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How wide the area is that reacts to the cursor.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_push() {
 		$v = $this->values();
 		$this->range( 'push', array( 'min' => 0, 'max' => 200, 'step' => 5, 'value' => $v['push'], 'suffix' => 'px' ) );
-		echo '<p class="description">' . esc_html__( 'How far particles shove away from the cursor.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How far particles shove away from the cursor.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_cursor_mode() {
 		$v       = $this->values();
 		$options = array(
-			'push'  => __( 'Push away', 'gravity-dots' ),
-			'pull'  => __( 'Pull in', 'gravity-dots' ),
-			'swirl' => __( 'Swirl around', 'gravity-dots' ),
+			'push'  => __( 'Push away', 'aizle-dots' ),
+			'pull'  => __( 'Pull in', 'aizle-dots' ),
+			'swirl' => __( 'Swirl around', 'aizle-dots' ),
 		);
 		echo '<select id="gd-cursor_mode" name="' . esc_attr( $this->name( 'cursor_mode' ) ) . '">';
 		foreach ( $options as $value => $label ) {
 			printf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( $value ), selected( $v['cursor_mode'], $value, false ), esc_html( $label ) );
 		}
 		echo '</select>';
-		echo '<p class="description">' . esc_html__( 'How particles react to the cursor: push away, get pulled in, or orbit around it.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How particles react to the cursor: push away, get pulled in, or orbit around it.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_rotate_with_cursor() {
@@ -433,7 +433,7 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-rotate_with_cursor" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'rotate_with_cursor' ) ),
 			checked( ! empty( $v['rotate_with_cursor'] ), true, false ),
-			esc_html__( 'Squares, triangles, and lines rotate to face the cursor as it pushes them, then settle back. (Dots are round, so rotation does not show on them.)', 'gravity-dots' )
+			esc_html__( 'Squares, triangles, and lines rotate to face the cursor as it pushes them, then settle back. (Dots are round, so rotation does not show on them.)', 'aizle-dots' )
 		);
 	}
 
@@ -443,26 +443,26 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-sleep_mode" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'sleep_mode' ) ),
 			checked( ! empty( $v['sleep_mode'] ), true, false ),
-			esc_html__( 'The field rests faint (or hidden) and only wakes where the moving cursor disturbs it, then fades back to sleep.', 'gravity-dots' )
+			esc_html__( 'The field rests faint (or hidden) and only wakes where the moving cursor disturbs it, then fades back to sleep.', 'aizle-dots' )
 		);
 	}
 
 	public function field_sleep_opacity() {
 		$v = $this->values();
 		$this->range( 'sleep_opacity', array( 'min' => 0, 'max' => 1, 'step' => 0.05, 'value' => $v['sleep_opacity'], 'readout' => 'value' ) );
-		echo '<p class="description">' . esc_html__( 'How visible particles are at rest (only applies when "Sleep until disturbed" is on). 0 = fully hidden until the cursor wakes them.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How visible particles are at rest (only applies when "Sleep until disturbed" is on). 0 = fully hidden until the cursor wakes them.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_wake_ms() {
 		$v = $this->values();
 		$this->range( 'wake_ms', array( 'min' => 100, 'max' => 5000, 'step' => 100, 'value' => $v['wake_ms'], 'suffix' => 'ms' ) );
-		echo '<p class="description">' . esc_html__( 'How long particles stay lit after the cursor wakes them, before fading back to sleep (only applies when "Sleep until disturbed" is on).', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How long particles stay lit after the cursor wakes them, before fading back to sleep (only applies when "Sleep until disturbed" is on).', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_scroll_strength() {
 		$v = $this->values();
 		$this->range( 'scroll_strength', array( 'min' => 0, 'max' => 200, 'step' => 5, 'value' => $v['scroll_strength'], 'readout' => 'value' ) );
-		echo '<p class="description">' . esc_html__( 'How strongly the field is nudged when the visitor scrolls. 0 = ignore scrolling.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How strongly the field is nudged when the visitor scrolls. 0 = ignore scrolling.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_avoid_content() {
@@ -471,15 +471,15 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-avoid_content" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'avoid_content' ) ),
 			checked( ! empty( $v['avoid_content'] ), true, false ),
-			esc_html__( 'Particles deflect around your text and images instead of drifting over them.', 'gravity-dots' )
+			esc_html__( 'Particles deflect around your text and images instead of drifting over them.', 'aizle-dots' )
 		);
-		echo '<p class="description">' . esc_html__( 'Automatically disabled on small screens for performance.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Automatically disabled on small screens for performance.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_avoid_strength() {
 		$v = $this->values();
 		$this->range( 'avoid_strength', array( 'min' => 0, 'max' => 200, 'step' => 5, 'value' => $v['avoid_strength'], 'readout' => 'value' ) );
-		echo '<p class="description">' . esc_html__( 'How firmly particles are pushed out of content. Higher keeps them further clear of text and images.', 'gravity-dots' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'How firmly particles are pushed out of content. Higher keeps them further clear of text and images.', 'aizle-dots' ) . '</p>';
 	}
 
 	public function field_respect_reduced_motion() {
@@ -488,7 +488,7 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-respect_reduced_motion" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'respect_reduced_motion' ) ),
 			checked( ! empty( $v['respect_reduced_motion'] ), true, false ),
-			esc_html__( 'When a visitor has "reduce motion" enabled, show a calm static field with no animation.', 'gravity-dots' )
+			esc_html__( 'When a visitor has "reduce motion" enabled, show a calm static field with no animation.', 'aizle-dots' )
 		);
 	}
 
@@ -498,7 +498,7 @@ class GravityDots_Settings {
 			'<label><input type="checkbox" id="gd-disable_on_mobile" name="%1$s" value="1" %2$s /> %3$s</label>',
 			esc_attr( $this->name( 'disable_on_mobile' ) ),
 			checked( ! empty( $v['disable_on_mobile'] ), true, false ),
-			esc_html__( 'Hide the field on small screens (640px and below).', 'gravity-dots' )
+			esc_html__( 'Hide the field on small screens (640px and below).', 'aizle-dots' )
 		);
 	}
 
@@ -514,7 +514,7 @@ class GravityDots_Settings {
 	 * @return array
 	 */
 	public function sanitize( $input ) {
-		$defaults = gravitydots_default_settings();
+		$defaults = aizledots_default_settings();
 		$input    = is_array( $input ) ? $input : array();
 		$out      = array();
 
@@ -639,25 +639,25 @@ class GravityDots_Settings {
 		}
 
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'gravity-dots-admin', GRAVITY_DOTS_URL . 'assets/admin/admin.css', array(), GRAVITY_DOTS_VERSION );
+		wp_enqueue_style( 'aizle-dots-admin', AIZLEDOTS_URL . 'assets/admin/admin.css', array(), AIZLEDOTS_VERSION );
 
 		wp_enqueue_script(
-			'gravity-dots-admin',
-			GRAVITY_DOTS_URL . 'assets/admin/admin.js',
+			'aizle-dots-admin',
+			AIZLEDOTS_URL . 'assets/admin/admin.js',
 			array( 'jquery', 'wp-color-picker' ),
-			GRAVITY_DOTS_VERSION,
+			AIZLEDOTS_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'gravity-dots-admin',
-			'GravityDotsAdmin',
+			'aizle-dots-admin',
+			'AizleDotsAdmin',
 			array(
 				'defaultColor' => '#0F4FFF',
-				'themePalette' => gravitydots_get_theme_palette(),
-				'presets'      => gravitydots_presets(),
+				'themePalette' => aizledots_get_theme_palette(),
+				'presets'      => aizledots_presets(),
 				'i18n'         => array(
-					'remove' => __( 'Remove', 'gravity-dots' ),
+					'remove' => __( 'Remove', 'aizle-dots' ),
 				),
 			)
 		);
@@ -696,31 +696,31 @@ class GravityDots_Settings {
 		}
 		?>
 		<div class="wrap gd-settings-wrap">
-			<h1><?php echo esc_html__( 'Gravity Dots', 'gravity-dots' ); ?></h1>
+			<h1><?php echo esc_html__( 'Aizle Dots', 'aizle-dots' ); ?></h1>
 
 			<?php
-			$reset_key = 'gravitydots_reset_' . get_current_user_id();
+			$reset_key = 'aizledots_reset_' . get_current_user_id();
 			if ( get_transient( $reset_key ) ) {
 				delete_transient( $reset_key );
-				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings reset to defaults.', 'gravity-dots' ) . '</p></div>';
+				echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings reset to defaults.', 'aizle-dots' ) . '</p></div>';
 			}
 			?>
 
 			<div class="gd-preview-pane">
 				<canvas id="gd-preview" width="600" height="300" aria-hidden="true"></canvas>
-				<p class="description"><?php echo esc_html__( 'Live preview of the current (unsaved) settings — move your cursor over it.', 'gravity-dots' ); ?></p>
+				<p class="description"><?php echo esc_html__( 'Live preview of the current (unsaved) settings — move your cursor over it.', 'aizle-dots' ); ?></p>
 			</div>
 
 			<form action="options.php" method="post" class="gd-form">
 				<?php settings_fields( self::OPTION_GROUP ); ?>
 
 				<div class="gd-card gd-start">
-					<h2><?php echo esc_html__( 'Start here', 'gravity-dots' ); ?></h2>
+					<h2><?php echo esc_html__( 'Start here', 'aizle-dots' ); ?></h2>
 					<p class="gd-enable"><?php $this->field_enabled(); ?></p>
-					<p class="gd-presets-label"><strong><?php echo esc_html__( 'Quick looks', 'gravity-dots' ); ?></strong> — <?php echo esc_html__( 'a one-click starting point (your colours are kept). Tweak anything below, then Save.', 'gravity-dots' ); ?></p>
+					<p class="gd-presets-label"><strong><?php echo esc_html__( 'Quick looks', 'aizle-dots' ); ?></strong> — <?php echo esc_html__( 'a one-click starting point (your colours are kept). Tweak anything below, then Save.', 'aizle-dots' ); ?></p>
 					<div class="gd-presets">
 						<?php
-						foreach ( gravitydots_presets() as $key => $preset ) {
+						foreach ( aizledots_presets() as $key => $preset ) {
 							printf(
 								'<button type="button" class="button gd-preset" data-preset="%1$s">%2$s</button>',
 								esc_attr( $key ),
@@ -732,26 +732,26 @@ class GravityDots_Settings {
 				</div>
 
 				<?php
-				$this->render_card_section( __( 'Look', 'gravity-dots' ), 'gravitydots_look' );
-				$this->render_card_section( __( 'Movement & cursor', 'gravity-dots' ), 'gravitydots_motion' );
-				$this->render_card_section( __( 'Content interaction', 'gravity-dots' ), 'gravitydots_content' );
-				$this->render_card_section( __( 'Where it appears', 'gravity-dots' ), 'gravitydots_display' );
-				$this->render_card_section( __( 'Performance & accessibility', 'gravity-dots' ), 'gravitydots_behaviour' );
+				$this->render_card_section( __( 'Look', 'aizle-dots' ), 'aizledots_look' );
+				$this->render_card_section( __( 'Movement & cursor', 'aizle-dots' ), 'aizledots_motion' );
+				$this->render_card_section( __( 'Content interaction', 'aizle-dots' ), 'aizledots_content' );
+				$this->render_card_section( __( 'Where it appears', 'aizle-dots' ), 'aizledots_display' );
+				$this->render_card_section( __( 'Performance & accessibility', 'aizle-dots' ), 'aizledots_behaviour' );
 				submit_button();
 				?>
 			</form>
 
-			<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" class="gd-reset-form" onsubmit="return confirm( '<?php echo esc_js( __( 'Reset all Gravity Dots settings to their defaults?', 'gravity-dots' ) ); ?>' );">
-					<input type="hidden" name="action" value="gravitydots_reset" />
-					<?php wp_nonce_field( 'gravitydots_reset' ); ?>
-					<?php submit_button( __( 'Reset to defaults', 'gravity-dots' ), 'secondary', 'gravitydots_reset_submit', false ); ?>
+			<form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" class="gd-reset-form" onsubmit="return confirm( '<?php echo esc_js( __( 'Reset all Aizle Dots settings to their defaults?', 'aizle-dots' ) ); ?>' );">
+					<input type="hidden" name="action" value="aizledots_reset" />
+					<?php wp_nonce_field( 'aizledots_reset' ); ?>
+					<?php submit_button( __( 'Reset to defaults', 'aizle-dots' ), 'secondary', 'aizledots_reset_submit', false ); ?>
 				</form>
 
 				<p class="gd-credit">
 				<?php
 				printf(
 					/* translators: %s: link to Aizle. */
-					wp_kses( __( 'Made by <a href="%s" target="_blank" rel="noopener">Aizle</a> &rarr;', 'gravity-dots' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'rel' => array() ) ) ),
+					wp_kses( __( 'Made by <a href="%s" target="_blank" rel="noopener">Aizle</a> &rarr;', 'aizle-dots' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'rel' => array() ) ) ),
 					esc_url( 'https://aizle.co' )
 				);
 				?>

@@ -1,0 +1,429 @@
+# Copyright (C) 2026 Aizle
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Aizle Dots 1.5.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/aizle-dots\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-12T11:15:26+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: aizle-dots\n"
+
+#. Plugin Name of the plugin
+#: aizle-dots.php
+#: includes/class-gd-settings.php:61
+#: includes/class-gd-settings.php:62
+#: includes/class-gd-settings.php:699
+msgid "Aizle Dots"
+msgstr ""
+
+#. Description of the plugin
+#: aizle-dots.php
+msgid "An interactive particle background that makes any WordPress site feel alive: coloured dots that drift gently and part around the cursor. No code, no libraries."
+msgstr ""
+
+#. Author of the plugin
+#: aizle-dots.php
+#: includes/defaults.php:191
+msgid "Aizle"
+msgstr ""
+
+#. Author URI of the plugin
+#: aizle-dots.php
+msgid "https://aizle.co"
+msgstr ""
+
+#: includes/class-gd-settings.php:47
+msgid "You do not have permission to do this."
+msgstr ""
+
+#: includes/class-gd-settings.php:84
+#: includes/class-gd-settings.php:738
+msgid "Where it appears"
+msgstr ""
+
+#: includes/class-gd-settings.php:85
+msgid "Where it shows"
+msgstr ""
+
+#: includes/class-gd-settings.php:86
+msgid "Exclude post/page IDs"
+msgstr ""
+
+#: includes/class-gd-settings.php:87
+msgid "Layer"
+msgstr ""
+
+#: includes/class-gd-settings.php:90
+#: includes/class-gd-settings.php:735
+msgid "Look"
+msgstr ""
+
+#: includes/class-gd-settings.php:91
+msgid "Colour palette"
+msgstr ""
+
+#: includes/class-gd-settings.php:92
+msgid "Use theme colours"
+msgstr ""
+
+#: includes/class-gd-settings.php:93
+msgid "Opacity"
+msgstr ""
+
+#: includes/class-gd-settings.php:94
+msgid "Density"
+msgstr ""
+
+#: includes/class-gd-settings.php:95
+msgid "Particle size"
+msgstr ""
+
+#: includes/class-gd-settings.php:96
+msgid "Shapes"
+msgstr ""
+
+#: includes/class-gd-settings.php:97
+msgid "Connect nearby dots"
+msgstr ""
+
+#: includes/class-gd-settings.php:98
+msgid "Connection distance"
+msgstr ""
+
+#: includes/class-gd-settings.php:101
+msgid "Motion &amp; cursor"
+msgstr ""
+
+#: includes/class-gd-settings.php:102
+msgid "Drift"
+msgstr ""
+
+#: includes/class-gd-settings.php:103
+msgid "Cursor reach"
+msgstr ""
+
+#: includes/class-gd-settings.php:104
+msgid "Push strength"
+msgstr ""
+
+#: includes/class-gd-settings.php:105
+msgid "Cursor effect"
+msgstr ""
+
+#: includes/class-gd-settings.php:106
+msgid "Rotate with cursor"
+msgstr ""
+
+#: includes/class-gd-settings.php:107
+msgid "Sleep until disturbed"
+msgstr ""
+
+#: includes/class-gd-settings.php:108
+msgid "Resting opacity"
+msgstr ""
+
+#: includes/class-gd-settings.php:109
+msgid "Stay-awake time"
+msgstr ""
+
+#: includes/class-gd-settings.php:110
+msgid "Scroll reaction"
+msgstr ""
+
+#: includes/class-gd-settings.php:113
+#: includes/class-gd-settings.php:737
+msgid "Content interaction"
+msgstr ""
+
+#: includes/class-gd-settings.php:114
+msgid "Avoid page content"
+msgstr ""
+
+#: includes/class-gd-settings.php:115
+msgid "Avoidance strength"
+msgstr ""
+
+#: includes/class-gd-settings.php:118
+msgid "Behaviour"
+msgstr ""
+
+#: includes/class-gd-settings.php:119
+msgid "Respect reduced motion"
+msgstr ""
+
+#: includes/class-gd-settings.php:120
+msgid "Disable on mobile"
+msgstr ""
+
+#: includes/class-gd-settings.php:147
+msgid "Choose which pages show the field, and whether it sits over or behind your content."
+msgstr ""
+
+#: includes/class-gd-settings.php:151
+msgid "Colour, opacity, density, size, and shapes. Sensible defaults are already set."
+msgstr ""
+
+#: includes/class-gd-settings.php:155
+msgid "How much the field drifts on its own, how it reacts to the cursor, and how it responds to scrolling."
+msgstr ""
+
+#: includes/class-gd-settings.php:159
+msgid "Let particles deflect around your page content. This is the heaviest effect, so it is automatically switched off on small screens."
+msgstr ""
+
+#: includes/class-gd-settings.php:163
+msgid "Accessibility and performance options."
+msgstr ""
+
+#: includes/class-gd-settings.php:195
+msgid "Show the particle field on the front end."
+msgstr ""
+
+#: includes/class-gd-settings.php:202
+msgid "Sitewide (everywhere)"
+msgstr ""
+
+#: includes/class-gd-settings.php:203
+msgid "Front page only"
+msgstr ""
+
+#: includes/class-gd-settings.php:204
+msgid "Single posts only"
+msgstr ""
+
+#: includes/class-gd-settings.php:205
+msgid "Pages only"
+msgstr ""
+
+#: includes/class-gd-settings.php:226
+msgid "e.g. 12, 84, 230"
+msgstr ""
+
+#: includes/class-gd-settings.php:228
+msgid "Comma-separated post or page IDs to hide the field on."
+msgstr ""
+
+#: includes/class-gd-settings.php:234
+msgid "Over content (subtle overlay)"
+msgstr ""
+
+#: includes/class-gd-settings.php:235
+msgid "Behind content (safest for text)"
+msgstr ""
+
+#: includes/class-gd-settings.php:248
+msgid "If the dots overlap a sticky header or menu, switch to \"Behind content\"."
+msgstr ""
+
+#: includes/class-gd-settings.php:265
+msgid "+ Add colour"
+msgstr ""
+
+#: includes/class-gd-settings.php:267
+msgid "The field cycles through these colours, one per particle. Add or remove as many as you like."
+msgstr ""
+
+#: includes/class-gd-settings.php:285
+msgid "Remove this colour"
+msgstr ""
+
+#: includes/class-gd-settings.php:286
+#: includes/class-gd-settings.php:660
+msgid "Remove"
+msgstr ""
+
+#: includes/class-gd-settings.php:326
+msgid "Pull colours from your active theme instead of the swatches above."
+msgstr ""
+
+#: includes/class-gd-settings.php:329
+msgid "Your active theme does not expose a colour palette, so the swatches above will be used."
+msgstr ""
+
+#. translators: %d: number of colours.
+#: includes/class-gd-settings.php:331
+#, php-format
+msgid "Found %d theme colour."
+msgid_plural "Found %d theme colours."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-gd-settings.php:338
+msgid "How visible the whole field is. Lower keeps text crisp in \"over\" mode."
+msgstr ""
+
+#: includes/class-gd-settings.php:346
+msgid "Left = more dots (up to several thousand), right = fewer. The readout estimates the count on a typical desktop screen; the field auto-throttles on slower devices."
+msgstr ""
+
+#: includes/class-gd-settings.php:351
+msgid "Smallest"
+msgstr ""
+
+#: includes/class-gd-settings.php:354
+msgid "Largest"
+msgstr ""
+
+#: includes/class-gd-settings.php:362
+msgid "Dots"
+msgstr ""
+
+#: includes/class-gd-settings.php:363
+msgid "Squares"
+msgstr ""
+
+#: includes/class-gd-settings.php:364
+msgid "Triangles"
+msgstr ""
+
+#: includes/class-gd-settings.php:365
+msgid "Lines"
+msgstr ""
+
+#: includes/class-gd-settings.php:377
+msgid "Pick any combination. If none are ticked, dots are used."
+msgstr ""
+
+#: includes/class-gd-settings.php:386
+msgid "Draw faint lines between dots that are close together (a \"constellation\" web)."
+msgstr ""
+
+#: includes/class-gd-settings.php:388
+msgid "At very high dot counts the field automatically thins itself to stay smooth."
+msgstr ""
+
+#: includes/class-gd-settings.php:394
+msgid "How close two dots must be before a line connects them."
+msgstr ""
+
+#: includes/class-gd-settings.php:400
+msgid "How far particles wander on their own. Set to 0 for a perfectly still field; high values make a restless swarm."
+msgstr ""
+
+#: includes/class-gd-settings.php:406
+msgid "How wide the area is that reacts to the cursor."
+msgstr ""
+
+#: includes/class-gd-settings.php:412
+msgid "How far particles shove away from the cursor."
+msgstr ""
+
+#: includes/class-gd-settings.php:418
+msgid "Push away"
+msgstr ""
+
+#: includes/class-gd-settings.php:419
+msgid "Pull in"
+msgstr ""
+
+#: includes/class-gd-settings.php:420
+msgid "Swirl around"
+msgstr ""
+
+#: includes/class-gd-settings.php:427
+msgid "How particles react to the cursor: push away, get pulled in, or orbit around it."
+msgstr ""
+
+#: includes/class-gd-settings.php:436
+msgid "Squares, triangles, and lines rotate to face the cursor as it pushes them, then settle back. (Dots are round, so rotation does not show on them.)"
+msgstr ""
+
+#: includes/class-gd-settings.php:446
+msgid "The field rests faint (or hidden) and only wakes where the moving cursor disturbs it, then fades back to sleep."
+msgstr ""
+
+#: includes/class-gd-settings.php:453
+msgid "How visible particles are at rest (only applies when \"Sleep until disturbed\" is on). 0 = fully hidden until the cursor wakes them."
+msgstr ""
+
+#: includes/class-gd-settings.php:459
+msgid "How long particles stay lit after the cursor wakes them, before fading back to sleep (only applies when \"Sleep until disturbed\" is on)."
+msgstr ""
+
+#: includes/class-gd-settings.php:465
+msgid "How strongly the field is nudged when the visitor scrolls. 0 = ignore scrolling."
+msgstr ""
+
+#: includes/class-gd-settings.php:474
+msgid "Particles deflect around your text and images instead of drifting over them."
+msgstr ""
+
+#: includes/class-gd-settings.php:476
+msgid "Automatically disabled on small screens for performance."
+msgstr ""
+
+#: includes/class-gd-settings.php:482
+msgid "How firmly particles are pushed out of content. Higher keeps them further clear of text and images."
+msgstr ""
+
+#: includes/class-gd-settings.php:491
+msgid "When a visitor has \"reduce motion\" enabled, show a calm static field with no animation."
+msgstr ""
+
+#: includes/class-gd-settings.php:501
+msgid "Hide the field on small screens (640px and below)."
+msgstr ""
+
+#: includes/class-gd-settings.php:705
+msgid "Settings reset to defaults."
+msgstr ""
+
+#: includes/class-gd-settings.php:711
+msgid "Live preview of the current (unsaved) settings — move your cursor over it."
+msgstr ""
+
+#: includes/class-gd-settings.php:718
+msgid "Start here"
+msgstr ""
+
+#: includes/class-gd-settings.php:720
+msgid "Quick looks"
+msgstr ""
+
+#: includes/class-gd-settings.php:720
+msgid "a one-click starting point (your colours are kept). Tweak anything below, then Save."
+msgstr ""
+
+#: includes/class-gd-settings.php:736
+msgid "Movement & cursor"
+msgstr ""
+
+#: includes/class-gd-settings.php:739
+msgid "Performance & accessibility"
+msgstr ""
+
+#: includes/class-gd-settings.php:744
+msgid "Reset all Aizle Dots settings to their defaults?"
+msgstr ""
+
+#: includes/class-gd-settings.php:747
+msgid "Reset to defaults"
+msgstr ""
+
+#. translators: %s: link to Aizle.
+#: includes/class-gd-settings.php:754
+#, php-format
+msgid "Made by <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Aizle</a> &rarr;"
+msgstr ""
+
+#: includes/defaults.php:151
+msgid "Calm"
+msgstr ""
+
+#: includes/defaults.php:161
+msgid "Confetti"
+msgstr ""
+
+#: includes/defaults.php:171
+msgid "Constellation"
+msgstr ""
+
+#: includes/defaults.php:181
+msgid "Minimal"
+msgstr ""

@@ -1,0 +1,42 @@
+/* ============================================================
+   Aizle Dots → canvas CSS
+   ------------------------------------------------------------
+   The plugin injects a single fixed, full-viewport canvas:
+       <canvas id="aizle-dots" aria-hidden="true"></canvas>
+
+   TWO layer modes (the "layer" setting → behind | over). The
+   plugin sets a body/canvas class or the z-index inline from the
+   setting. pointer-events:none in BOTH modes so the field can
+   NEVER block clicks, links, menus, or form fields.
+   ============================================================ */
+
+#aizle-dots {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;   /* critical → never intercept input */
+  display: block;
+  /* z-index is set by the layer mode below (or inline by PHP) */
+}
+
+/* LAYER = "over" → speckles sit on top of the page at low opacity.
+   This is the literal "dots over the site" look. Opacity is handled
+   in the engine (globalAlpha), so keep this fully painted.
+   z-index sits above normal content but BELOW typical sticky headers
+   / admin bar (which are usually 100–100000). Tune per theme. */
+#aizle-dots.gd-over { z-index: 2; }
+
+/* LAYER = "behind" → speckles sit behind page content (safest for
+   legibility). Only visible where section backgrounds are
+   transparent/translucent. */
+#aizle-dots.gd-behind { z-index: 0; }
+
+/* Never let the canvas cause horizontal scroll on odd themes. */
+html, body { overflow-x: hidden; }
+
+/* Respect reduced motion at the CSS layer too (belt + braces →
+   the engine already short-circuits the rAF loop). */
+@media (prefers-reduced-motion: reduce) {
+  #aizle-dots { /* engine renders a single static frame; nothing animates */ }
+}

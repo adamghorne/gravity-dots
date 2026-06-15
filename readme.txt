@@ -1,4 +1,4 @@
-=== Gravity Dots ===
+=== Aizle Dots ===
 Contributors: adamhorne
 Tags: particles, background, animation, canvas, interactive
 Requires at least: 6.0
@@ -12,7 +12,7 @@ Colourful particles that drift across your site and gently part around the curso
 
 == Description ==
 
-**Gravity Dots** paints a living field of coloured particles behind or over your site. They drift slowly on their own, and part in a wide, soft wave around your visitor's cursor. A premium, modern touch in two clicks.
+**Aizle Dots** paints a living field of coloured particles behind or over your site. They drift slowly on their own, and part in a wide, soft wave around your visitor's cursor. A premium, modern touch in two clicks.
 
 It's built to be the *good* kind of effect:
 
@@ -38,9 +38,9 @@ Made by [Aizle](https://aizle.co). Free, and genuinely free. The goodwill is the
 
 == Installation ==
 
-1. In your dashboard, go to **Plugins → Add New** and search for "Gravity Dots", or upload the plugin zip via **Plugins → Add New → Upload Plugin**.
+1. In your dashboard, go to **Plugins → Add New** and search for "Aizle Dots", or upload the plugin zip via **Plugins → Add New → Upload Plugin**.
 2. Click **Activate**. You'll see the particle field straight away.
-3. Go to **Settings → Gravity Dots** to choose your colours and tune the look.
+3. Go to **Settings → Aizle Dots** to choose your colours and tune the look.
 
 == Frequently Asked Questions ==
 
@@ -64,13 +64,7 @@ No. There are no external requests, no analytics, and no tracking of any kind.
 
 == Screenshots ==
 
-1. The interactive particle field reacting to the cursor on a live page.
-2. The settings page: colours, density, opacity, motion, and placement.
-3. "Behind content" mode and reduced-motion behaviour.
-
-== Screenshots ==
-
-1. Gravity Dots over a live site — coloured particles that drift gently and part around the cursor.
+1. Aizle Dots over a live site — coloured particles that drift gently and part around the cursor.
 2. The settings page: a live preview, one-click presets, and all the controls.
 
 == Changelog ==
@@ -125,4 +119,4 @@ Adds "Sleep until disturbed" mode and refines content avoidance.
 Adds the Lines shape, cursor-facing rotation, scroll reaction, and content avoidance.
 
 = 1.0.0 =
-First release of Gravity Dots.
+First release of Aizle Dots.

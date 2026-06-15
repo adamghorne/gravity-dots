@@ -2,7 +2,7 @@
 /**
  * Frontend: decide-to-load, enqueue assets, print the config object, inject the canvas.
  *
- * @package GravityDots
+ * @package AizleDots
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Handles everything the visitor sees.
  */
-class GravityDots_Frontend {
+class AizleDots_Frontend {
 
 	/**
 	 * Resolved settings for this request.
@@ -85,14 +85,14 @@ class GravityDots_Frontend {
 		 * @param bool  $show     Whether to render.
 		 * @param array $settings The resolved settings.
 		 */
-		return (bool) apply_filters( 'gravity_dots_should_display', $show, $settings );
+		return (bool) apply_filters( 'aizledots_should_display', $show, $settings );
 	}
 
 	/**
 	 * Enqueue assets, print the config, and queue the canvas — only when in scope.
 	 */
 	public function enqueue() {
-		$settings = gravitydots_get_settings();
+		$settings = aizledots_get_settings();
 
 		if ( ! $this->should_display( $settings ) ) {
 			return;
@@ -101,13 +101,13 @@ class GravityDots_Frontend {
 		$this->settings    = $settings;
 		$this->layer_class = ( 'behind' === $settings['layer'] ) ? 'gd-behind' : 'gd-over';
 
-		wp_enqueue_style( 'gravity-dots', GRAVITY_DOTS_URL . 'assets/css/gravity-dots.css', array(), GRAVITY_DOTS_VERSION );
-		wp_enqueue_script( 'gravity-dots', GRAVITY_DOTS_URL . 'assets/js/gravity-dots.js', array(), GRAVITY_DOTS_VERSION, true );
+		wp_enqueue_style( 'aizle-dots', AIZLEDOTS_URL . 'assets/css/aizle-dots.css', array(), AIZLEDOTS_VERSION );
+		wp_enqueue_script( 'aizle-dots', AIZLEDOTS_URL . 'assets/js/aizle-dots.js', array(), AIZLEDOTS_VERSION, true );
 
 		$config = $this->build_config( $settings );
 		wp_add_inline_script(
-			'gravity-dots',
-			'window.GravityDots = ' . wp_json_encode( $config ) . ';',
+			'aizle-dots',
+			'window.AizleDots = ' . wp_json_encode( $config ) . ';',
 			'before'
 		);
 
@@ -115,7 +115,7 @@ class GravityDots_Frontend {
 	}
 
 	/**
-	 * Assemble the JS config contract (window.GravityDots) from the saved settings.
+	 * Assemble the JS config contract (window.AizleDots) from the saved settings.
 	 *
 	 * Casts each value to the exact type the engine expects so wp_json_encode
 	 * emits clean JS (ints as ints, floats as floats, bools as bools). Keys and
@@ -125,13 +125,13 @@ class GravityDots_Frontend {
 	 * @return array
 	 */
 	private function build_config( $settings ) {
-		$constants = gravitydots_engine_constants();
+		$constants = aizledots_engine_constants();
 
 		// Palette: manual swatches, unless "use theme colours" is on and the
 		// active theme exposes a palette we can read.
 		$palette = array_values( (array) $settings['palette'] );
 		if ( ! empty( $settings['use_theme_colors'] ) ) {
-			$theme = gravitydots_get_theme_palette();
+			$theme = aizledots_get_theme_palette();
 			if ( ! empty( $theme ) ) {
 				$palette = $theme;
 			}
@@ -176,6 +176,6 @@ class GravityDots_Frontend {
 	 * Print the canvas element in the footer.
 	 */
 	public function render_canvas() {
-		echo '<canvas id="gravity-dots" class="' . esc_attr( $this->layer_class ) . '" aria-hidden="true"></canvas>';
+		echo '<canvas id="aizle-dots" class="' . esc_attr( $this->layer_class ) . '" aria-hidden="true"></canvas>';
 	}
 }

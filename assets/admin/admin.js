@@ -1,25 +1,25 @@
 /* ============================================================
-   Gravity Dots → admin settings page script
+   Aizle Dots → admin settings page script
    ------------------------------------------------------------
    - Initialises wp-color-picker on each palette swatch.
    - Add / remove palette rows.
    - Live numeric readouts for the range sliders.
    - A contained live preview that approximates the current
      (unsaved) settings. This is a small, admin-only renderer;
-     the real engine ships in assets/js/gravity-dots.js.
+     the real engine ships in assets/js/aizle-dots.js.
 
    The preview shows the LOOK (palette, opacity, density, size,
    shapes, cursor-facing rotation, cursor effect, sleep, and
    constellation links). Scroll reaction and content avoidance are
    page-level effects, so they only show on the live site.
 
-   @package GravityDots
+   @package AizleDots
    ============================================================ */
 
 ( function ( $ ) {
 	'use strict';
 
-	var cfg = window.GravityDotsAdmin || {};
+	var cfg = window.AizleDotsAdmin || {};
 
 	/* ---------- Colour pickers ---------- */
 	function initColorPicker( $field ) {

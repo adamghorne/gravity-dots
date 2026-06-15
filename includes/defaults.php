@@ -1,12 +1,12 @@
 <?php
 /**
- * Default settings for Gravity Dots.
+ * Default settings for Aizle Dots.
  *
  * Single source of truth for PHP-side defaults. These MUST stay in sync with
- * the JS engine's internal defaults in assets/js/gravity-dots.js and with the
+ * the JS engine's internal defaults in assets/js/aizle-dots.js and with the
  * config contract in ASSETS-AND-DEFAULTS.md §2.
  *
- * @package GravityDots
+ * @package AizleDots
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,11 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The default settings array.
  *
  * Keys map to the admin controls (see class-gd-settings.php) and, where noted,
- * to the JS config object printed as window.GravityDots (see class-gd-frontend.php).
+ * to the JS config object printed as window.AizleDots (see class-gd-frontend.php).
  *
  * @return array
  */
-function gravitydots_default_settings() {
+function aizledots_default_settings() {
 	return array(
 		// --- Display (PHP-side gates; not in the JS contract) ---
 		'enabled'                => true,        // master on/off.
@@ -68,7 +68,7 @@ function gravitydots_default_settings() {
  *
  * @return array
  */
-function gravitydots_engine_constants() {
+function aizledots_engine_constants() {
 	return array(
 		'min_particles'    => 60,
 		'max_particles'    => 5000,  // hard ceiling; the engine auto-throttles below this on slower devices.
@@ -89,8 +89,8 @@ function gravitydots_engine_constants() {
  *
  * @return array
  */
-function gravitydots_get_settings() {
-	return wp_parse_args( get_option( 'gravity_dots_settings', array() ), gravitydots_default_settings() );
+function aizledots_get_settings() {
+	return wp_parse_args( get_option( 'aizledots_settings', array() ), aizledots_default_settings() );
 }
 
 /**
@@ -101,7 +101,7 @@ function gravitydots_get_settings() {
  *
  * @return array Array of hex colour strings (may be empty on classic themes).
  */
-function gravitydots_get_theme_palette() {
+function aizledots_get_theme_palette() {
 	$out = array();
 	if ( ! function_exists( 'wp_get_global_settings' ) ) {
 		return $out;
@@ -145,10 +145,10 @@ function gravitydots_get_theme_palette() {
  *
  * @return array
  */
-function gravitydots_presets() {
+function aizledots_presets() {
 	return array(
 		'calm'          => array(
-			'label'    => __( 'Calm', 'gravity-dots' ),
+			'label'    => __( 'Calm', 'aizle-dots' ),
 			'settings' => array(
 				'opacity' => 0.35, 'density_area' => 13000, 'size_min' => 2.0, 'size_max' => 5.0,
 				'shape_dot' => true, 'shape_square' => false, 'shape_triangle' => false, 'shape_line' => false,
@@ -158,7 +158,7 @@ function gravitydots_presets() {
 			),
 		),
 		'confetti'      => array(
-			'label'    => __( 'Confetti', 'gravity-dots' ),
+			'label'    => __( 'Confetti', 'aizle-dots' ),
 			'settings' => array(
 				'opacity' => 0.85, 'density_area' => 1600, 'size_min' => 1.5, 'size_max' => 4.0,
 				'shape_dot' => true, 'shape_square' => true, 'shape_triangle' => true, 'shape_line' => true,
@@ -168,7 +168,7 @@ function gravitydots_presets() {
 			),
 		),
 		'constellation' => array(
-			'label'    => __( 'Constellation', 'gravity-dots' ),
+			'label'    => __( 'Constellation', 'aizle-dots' ),
 			'settings' => array(
 				'opacity' => 0.7, 'density_area' => 4500, 'size_min' => 1.4, 'size_max' => 3.0,
 				'shape_dot' => true, 'shape_square' => false, 'shape_triangle' => false, 'shape_line' => false,
@@ -178,7 +178,7 @@ function gravitydots_presets() {
 			),
 		),
 		'minimal'       => array(
-			'label'    => __( 'Minimal', 'gravity-dots' ),
+			'label'    => __( 'Minimal', 'aizle-dots' ),
 			'settings' => array(
 				'opacity' => 0.25, 'density_area' => 16000, 'size_min' => 1.0, 'size_max' => 2.5,
 				'shape_dot' => true, 'shape_square' => false, 'shape_triangle' => false, 'shape_line' => false,
@@ -188,7 +188,7 @@ function gravitydots_presets() {
 			),
 		),
 		'aizle'         => array(
-			'label'    => __( 'Aizle', 'gravity-dots' ),
+			'label'    => __( 'Aizle', 'aizle-dots' ),
 			'settings' => array(
 				'opacity' => 0.6, 'density_area' => 4000, 'size_min' => 2.0, 'size_max' => 4.5,
 				'shape_dot' => true, 'shape_square' => false, 'shape_triangle' => true, 'shape_line' => true,
